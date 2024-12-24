@@ -1,7 +1,7 @@
 # bugsquashers
 
 ## Team Members
-- Abu Jamil Faisal Shuvo (Team Leader)
+- sahilaf (Team Leader)
 - AJFShuvo
 - Sajidcodecrack
 
