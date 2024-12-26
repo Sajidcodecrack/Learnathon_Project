@@ -9,7 +9,7 @@
 - naimjeem
 
 ## Project Description
-Our project is about an e-commerce platfrom from reailer to consumer grocery products to break the food and groceries  price syndicates
+Our project is about an e-commerce platfrom where we will work for retailer to consumer grocery products to break the food and groceries  price syndicates. In here Our target audience is wholsale market to retailer then retailer to consumer or user. In here we want to a global platfrom for the users to see the price actual rate and also the profit and losses for the businessman.
 
 ## Getting Started
 1. Clone the repository
