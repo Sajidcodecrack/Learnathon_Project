@@ -9,7 +9,7 @@
 - naimjeem
 
 ## Project Description
-Our project is about an e-commerce platfrom from reailer to consumer grocery products to break the food and groceries  price syndicates 
+Our project is about an e-commerce platfrom from reailer to consumer grocery products to break the food and groceries  price syndicates
 
 ## Getting Started
 1. Clone the repository
