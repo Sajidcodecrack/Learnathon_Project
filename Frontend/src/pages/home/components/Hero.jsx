@@ -3,16 +3,15 @@ import Scene from "./Scene";
 
 function Hero() {
   return (
-    <>
+    
       <div className="h-screen w-full bg-white flex">
         <div className=" h-full w-full">
-
+          heading
         </div>
         <div className=" h-full w-full">
           <Scene/>
         </div>
       </div>
-    </>
   );
 }
 
