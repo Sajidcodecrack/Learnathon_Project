@@ -1,9 +1,12 @@
 import React from 'react'
-
-function Home() {
+import Hero from './components/Hero'
+import Nav from '../../components/Nav/Nav'
+function Index() {
   return (
-    <div className='h-52 bg-zinc-400'>Home</div>
+    <div>
+      <Nav/>
+      <Hero/>
+    </div>
   )
 }
-
-export default Home
+export default Index
