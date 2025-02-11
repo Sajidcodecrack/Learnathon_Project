@@ -9,15 +9,38 @@ import { FaBars } from "react-icons/fa"; // Hamburger menu icon
 
 function Nav() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
   };
 
+  const toggleLogin = () => {
+    setIsLoggedIn(!isLoggedIn);
+  };
+
+  const SignInButton = () => (
+    <button onClick={toggleLogin} className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer">
+      <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
+      <span className="text-xs">
+        Sign in <br /> Account
+      </span>
+    </button>
+  );
+
+  const ProfileButton = () => (
+    <button onClick={toggleLogin} className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer">
+      <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
+      <span className="text-xs">
+        Profile
+      </span>
+    </button>
+  );
+
   return (
     <div>
       {/* Main Navigation Bar (Hidden on Small Screens) */}
-      <div className="font-secondary fixed top-0 right-0 left-0 bg-[#C8D76F] shadow-md h-24 hidden md:block">
+      <div className="font-secondary fixed top-0 right-0 left-0 bg-[#C8D76F] shadow-md h-24 hidden md:block z-50">
         <div className="h-20 w-full flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 md:gap-6 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-32">
           {/* Logo Section */}
           <div className="h-6">
@@ -42,11 +65,11 @@ function Nav() {
           </div>
 
           {/* Search Section */}
-          <div className="h-12 w-full sm:w-[400px] md:w-[500px] lg:w-[600px] bg-white rounded-full flex items-center px-4">
+          <div className="h-12 w-[500px] bg-white rounded-full flex items-center px-4">
             <input
               type="text"
               placeholder="Search any item you want"
-              className="placeholder-dark_grey w-full h-12 outline-none text-dark_grey rounded-full ml-3 placeholder:text-sm"
+              className="placeholder-dark_grey w-full h-12 outline-none text-dark_grey  ml-3 placeholder:text-sm"
             />
 
             <button className="h-10 w-12 mx-1 bg-[#EEF3CD] rounded-full flex items-center justify-center">
@@ -58,13 +81,8 @@ function Nav() {
             </button>
           </div>
 
-          {/* Sign-in Section */}
-          <button className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer">
-            <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
-            <span className="text-xs ">
-              Sign in <br /> Account
-            </span>
-          </button>
+          {/* Sign-in/Profile Section */}
+          {isLoggedIn ? <ProfileButton /> : <SignInButton />}
 
           {/* Cart Section */}
           <button className="flex-row items-center gap-2 text-[#A2BB5D] cursor-pointer">
@@ -117,29 +135,38 @@ function Nav() {
               </div>
 
               {/* Search Section */}
-              <div className="h-12 w-full bg-white rounded-full flex items-center px-4">
+              <div className="h-12 w-full bg-black rounded-full flex items-center px-4">
                 <input
                   type="text"
-                  placeholder="Search any item you want"
-                  className="placeholder-dark_grey w-full h-12 outline-none text-dark_grey rounded-full ml-3 placeholder:text-sm"
+                  placeholder="Search any item you "
+                  className="placeholder-dark_grey w-full h-12 outline-none text-dark_grey ml-3 placeholder:text-sm"
                 />
 
-                <button className="h-10 w-12 mx-1 bg-[#EEF3CD] rounded-full flex items-center justify-center">
+                <button className="h-10 w-10 mx-1 bg-[#EEF3CD] rounded-full flex items-center justify-center">
                   <img src={camera} alt="Search" className="h-5 w-5" />
                 </button>
 
-                <button className="h-10 w-12 bg-[#A2BB5D] mx-1 rounded-full flex items-center justify-center">
+                <button className="h-10 w-10 bg-[#A2BB5D] mx-1 rounded-full flex items-center justify-center">
                   <img src={searchIcon} alt="Search" className="h-6 w-6" />
                 </button>
               </div>
 
-              {/* Sign-in Section */}
-              <button className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
-                <img src={userIcon} alt="User" className="h-4 w-4" />
-                <span className="text-xs ">
-                  Sign in <br /> Account
-                </span>
-              </button>
+              {/* Sign-in/Profile Section in Mobile Menu */}
+              {isLoggedIn ? (
+                <button onClick={toggleLogin} className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
+                  <img src={userIcon} alt="User" className="h-4 w-4" />
+                  <span className="text-xs">
+                    My Profile <br /> Settings
+                  </span>
+                </button>
+              ) : (
+                <button onClick={toggleLogin} className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
+                  <img src={userIcon} alt="User" className="h-4 w-4" />
+                  <span className="text-xs">
+                    Sign in <br /> Account
+                  </span>
+                </button>
+              )}
 
               {/* Cart Section */}
               <button className="flex-row items-center gap-2 text-[#A2BB5D] cursor-pointer">
