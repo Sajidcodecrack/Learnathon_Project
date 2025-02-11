@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import logo from "./assets/Fairbasket.png"; // Logo image
 import cart from "./assets/Cart.svg"; // Cart icon
 import camera from "./assets/Camera.svg"; // Camera icon
@@ -7,6 +8,41 @@ import userIcon from "./assets/User.svg"; // User icon
 import packageicon from "./assets/Package.png"; // Package icon
 import { FaBars } from "react-icons/fa"; // Hamburger menu icon
 
+// SignInButton Component
+const SignInButton = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer"
+  >
+    <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
+    <span className="text-xs">
+      Sign in <br /> Account
+    </span>
+  </button>
+);
+
+// Prop Validation for SignInButton
+SignInButton.propTypes = {
+  onClick: PropTypes.func.isRequired, // Validate onClick as a required function
+};
+
+// ProfileButton Component
+const ProfileButton = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer"
+  >
+    <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
+    <span className="text-xs">Profile</span>
+  </button>
+);
+
+// Prop Validation for ProfileButton
+ProfileButton.propTypes = {
+  onClick: PropTypes.func.isRequired, // Validate onClick as a required function
+};
+
+// Nav Component
 function Nav() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,24 +54,6 @@ function Nav() {
   const toggleLogin = () => {
     setIsLoggedIn(!isLoggedIn);
   };
-
-  const SignInButton = () => (
-    <button onClick={toggleLogin} className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer">
-      <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
-      <span className="text-xs">
-        Sign in <br /> Account
-      </span>
-    </button>
-  );
-
-  const ProfileButton = () => (
-    <button onClick={toggleLogin} className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer">
-      <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
-      <span className="text-xs">
-        Profile
-      </span>
-    </button>
-  );
 
   return (
     <div>
@@ -82,7 +100,11 @@ function Nav() {
           </div>
 
           {/* Sign-in/Profile Section */}
-          {isLoggedIn ? <ProfileButton /> : <SignInButton />}
+          {isLoggedIn ? (
+            <ProfileButton onClick={toggleLogin} />
+          ) : (
+            <SignInButton onClick={toggleLogin} />
+          )}
 
           {/* Cart Section */}
           <button className="flex-row items-center gap-2 text-[#A2BB5D] cursor-pointer">
@@ -98,7 +120,7 @@ function Nav() {
       </div>
 
       {/* Mobile Navigation Bar (Visible on Small Screens) */}
-      <div className="font-secondary fixed top-0 right-0 left-0 bg-[#C8D76F] shadow-md h-16 block md:hidden">
+      <div className="font-secondary fixed top-0 right-0 left-0 bg-[#C8D76F] shadow-md h-16 block md:hidden z-50">
         <div className="h-full w-full flex items-center justify-between px-4">
           {/* Logo Section */}
           <div className="h-6">
@@ -120,7 +142,7 @@ function Nav() {
 
         {/* Mobile Nav Dropdown */}
         {isMobileNavOpen && (
-          <div className="bg-[#C8D76F] w-full absolute top-16 left-0 shadow-lg">
+          <div className="bg-[#C8D76F] w-full absolute top-16 left-0 shadow-lg z-50">
             <div className="flex flex-col items-center gap-4 p-4">
               {/* Address Dropdown */}
               <div className="h-12 p-2 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
@@ -153,14 +175,20 @@ function Nav() {
 
               {/* Sign-in/Profile Section in Mobile Menu */}
               {isLoggedIn ? (
-                <button onClick={toggleLogin} className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
+                <button
+                  onClick={toggleLogin}
+                  className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer"
+                >
                   <img src={userIcon} alt="User" className="h-4 w-4" />
                   <span className="text-xs">
                     My Profile <br /> Settings
                   </span>
                 </button>
               ) : (
-                <button onClick={toggleLogin} className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
+                <button
+                  onClick={toggleLogin}
+                  className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer"
+                >
                   <img src={userIcon} alt="User" className="h-4 w-4" />
                   <span className="text-xs">
                     Sign in <br /> Account

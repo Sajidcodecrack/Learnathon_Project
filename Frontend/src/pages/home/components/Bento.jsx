@@ -2,48 +2,68 @@ import React from "react";
 
 const Bento = () => {
   return (
-    <div className="p-4 max-w-7xl mx-auto">
+    <div className="lg:px-32 md:px-16 px-4 h-[110%] py-10 mt-[500px] lg:mt-0 md:mt-[400px] z-10">
       {/* Grid Container */}
-      <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 auto-rows-[200px]">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:grid-rows-3 md:grid-rows-4 grid-rows-6 gap-4 md:gap-6">
         
-        {/* Card 1 - Discount */}
-        <div className="col-span-4 bg-[#F7D794] p-6 rounded-2xl flex items-center justify-center">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold">Up to 60% off</h3>
-            <div className="mt-4">
-              <img src="/groceries.png" alt="Grocery Items" className="max-h-24 mx-auto" />
-            </div>
+        {/* Card 1 */}
+        <div className="col-span-1 row-span-1 bg-yellow h-60 md:h-72 rounded-md relative overflow-hidden group">
+          <img src="/Bento1.jpg" alt="Grocery Items" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/60" />
+          <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+            <h3 className="text-xl md:text-2xl font-bold text-white">Fresh Produce</h3>
+            <p className="text-sm md:text-base text-white/90 mt-1 md:mt-2">Farm-fresh vegetables and fruits</p>
           </div>
         </div>
 
-        {/* Card 2 - Healthy & Fresh */}
-        <div className="col-span-4 md:col-span-4 bg-[#E66767] text-white p-6 rounded-2xl flex flex-col justify-center items-center">
-          <h3 className="text-2xl font-bold text-center mb-4">Healthy, Affordable, and Delivered Fresh!</h3>
-          <img src="/mesh-bag.png" alt="Mesh Bag with Fruits" className="max-h-28" />
+        {/* Card 2 */}
+        <div className="md:col-span-1 col-span-1 md:row-span-2 row-span-1 bg-action_red rounded-md relative overflow-hidden group">
+          <img src="/Bento2.jpg" alt="Grocery Items" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/60" />
+          <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+            <h3 className="text-xl md:text-2xl font-bold text-white">Special Offers</h3>
+            <p className="text-sm md:text-base text-white/90 mt-1 md:mt-2">Up to 60% off on selected items</p>
+          </div>
         </div>
 
-        {/* Card 3 - Milk Products */}
-        <div className="col-span-4 bg-[#95D195] p-6 rounded-2xl flex flex-col justify-center items-center">
-          <h3 className="text-xl font-bold text-center mb-4">Pure, Fresh, and Creamy – Milk Deals You'll Love!</h3>
-          <img src="/dairy.png" alt="Dairy Products" className="max-h-24" />
+        {/* Card 3 */}
+        <div className="col-span-1 row-span-1 bg-primary rounded-md relative overflow-hidden group">
+          <img src="/Bento3.jpg" alt="Grocery Items" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/60" />
+          <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+            <h3 className="text-xl md:text-2xl font-bold text-white">Dairy & Eggs</h3>
+            <p className="text-sm md:text-base text-white/90 mt-1 md:mt-2">Fresh dairy products daily</p>
+          </div>
         </div>
 
-        {/* Card 4 - Fresh Picks */}
-        <div className="col-span-4 md:col-span-4 bg-[#B8E4B8] p-6 rounded-2xl flex flex-col justify-center items-center">
-          <h3 className="text-xl font-bold text-center mb-4">Fresh Picks, Big Savings – Shop Now!</h3>
-          <img src="/produce-box.png" alt="Fresh Produce Box" className="max-h-28" />
+        {/* Card 4 */}
+        <div className="md:col-span-1 col-span-1 md:row-span-2 row-span-1 bg-primary_light rounded-md relative overflow-hidden group">
+          <img src="/Bento4.jpg" alt="Grocery Items" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/60" />
+          <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+            <h3 className="text-xl md:text-2xl font-bold text-white">Pantry Essentials</h3>
+            <p className="text-sm md:text-base text-white/90 mt-1 md:mt-2">Stock up on everyday basics</p>
+          </div>
         </div>
 
-        {/* Card 5 - Daily Veggies */}
-        <div className="col-span-4 bg-[#FFE4B5] p-6 rounded-2xl flex flex-col justify-center items-center">
-          <h3 className="text-xl font-bold text-center mb-4">Your Daily Veggie Needs, Now on Sale!</h3>
-          <img src="/delivery-person.png" alt="Delivery Person" className="max-h-24" />
+        {/* Card 5 */}
+        <div className="col-span-1 row-span-1 bg-yellow rounded-md relative overflow-hidden group">
+          <img src="/Bento5.jpg" alt="Grocery Items" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/60" />
+          <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+            <h3 className="text-xl md:text-2xl font-bold text-white">Snacks & Treats</h3>
+            <p className="text-sm md:text-base text-white/90 mt-1 md:mt-2">Indulge in delicious snacks</p>
+          </div>
         </div>
 
-        {/* Card 6 - Farm Fresh Banner */}
-        <div className="col-span-full bg-[#2E8B57] text-white p-6 rounded-2xl flex flex-col justify-center items-center" style={{ height: '200px' }}>
-          <h3 className="text-3xl font-bold text-center">Farm-Fresh Vegetables, Delivered to Your Doorstep!</h3>
-          <img src="/vegetables-shelf.png" alt="Fresh Vegetables Display" className="w-full h-24 object-cover mt-4 rounded-lg" />
+        {/* Card 6 */}
+        <div className="md:col-span-2 col-span-1 row-span-1 bg-green-900 rounded-md relative overflow-hidden group">
+          <img src="/Bento6.jpg" alt="Grocery Items" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/60" />
+          <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+            <h3 className="text-xl md:text-2xl font-bold text-white">Organic Selection</h3>
+            <p className="text-sm md:text-base text-white/90 mt-1 md:mt-2">Premium organic products for healthy living</p>
+          </div>
         </div>
 
       </div>

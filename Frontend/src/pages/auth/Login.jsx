@@ -43,11 +43,6 @@ function Login() {
             />
           </div>
 
-          <div className="mb-5">
-            <a href="#" className="text-sub_text hover:text-dark_grey font-secondary">
-              Having trouble in sign in?
-            </a>
-          </div>
 
           <button 
             type="submit" 
