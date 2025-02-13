@@ -21,6 +21,7 @@ export default {
       fontFamily: {
         heading: ["Anton", "sans-serif"], // Popping font for headings
         secondary: ["Roboto", "sans-serif"], // Roboto for secondary text
+        praise: ["Praise", "cursive"], // Praise font added
       }
     }
   },

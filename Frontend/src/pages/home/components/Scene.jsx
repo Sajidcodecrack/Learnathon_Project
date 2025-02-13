@@ -130,7 +130,7 @@ const Scene = () => {
     // Large screens
     cameraPosition = [9, 1.5, -1];
     fov = 50;
-    modelScale = 1.3;
+    modelScale = 1.25;
     modelY = -0.1;
   }
 

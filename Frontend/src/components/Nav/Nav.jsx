@@ -116,7 +116,12 @@ function Nav() {
             </div>
           </button>
         </div>
-        <div className="h-6 bg-[#EEF3CD]"></div>
+        <div className="h-8 bg-[#EEF3CD] flex gap-8 px-32 items-center">
+          <h3>Discounted</h3>
+          <h3>Best prices</h3>
+          <h3>Dairy</h3>
+          <h3>Fresh</h3>
+        </div>
       </div>
 
       {/* Mobile Navigation Bar (Visible on Small Screens) */}
