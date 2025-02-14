@@ -1,110 +1,189 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
-import { FaApple, FaFacebook } from 'react-icons/fa';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { FaApple, FaFacebook } from "react-icons/fa";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Loader2 } from "lucide-react";
+
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { auth } from "./Firebase";
 
 function Signup() {
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle signup logic here
+    setIsLoading(true);
+
+    const { fullName, email, password, confirmPassword } = formData;
+
+    if (!fullName || !email || !password || !confirmPassword) {
+      alert("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log("User created:", user);
+      alert("Account created successfully!");
+      // Redirect or update state as needed
+    } catch (error) {
+      console.error("Error signing up:", error.message);
+      alert(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-light_grey p-5">
-      <div className="bg-background p-8 rounded-2xl w-full max-w-[450px] shadow-lg">
-        <h1 className="text-3xl text-center mb-2 font-heading font-bold text-dark_grey">Create Account</h1>
-        <p className="text-center text-sub_text mb-8 font-secondary">
-          Please fill in your details to create your account
-        </p>
+    <div className="min-h-screen flex">
+      {/* Left Column - Cover Image */}
+      <div className="hidden lg:block w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1656832020447-bc9446b5028a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+        <div className="h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <h1 className="text-4xl font-bold text-white">Join Us!</h1>
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-5">
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={formData.fullName}
-              onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-              className="w-full px-4 py-3 border border-light_grey rounded-lg text-base focus:outline-none focus:border-primary font-secondary"
-            />
+      {/* Right Column - Signup Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold">Create your account</h2>
+            <p className="text-muted-foreground">Enter your details to get started</p>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="grid gap-4">
+              {/* Full Name Field */}
+              <div>
+                <label htmlFor="fullName" className="block text-sm font-medium mb-1">
+                  Full Name
+                </label>
+                <Input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  placeholder="John Doe"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                />
+              </div>
+
+              {/* Email Field */}
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-1">
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                />
+              </div>
+
+              {/* Password Field */}
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium mb-1">
+                  Password
+                </label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                />
+              </div>
+
+              {/* Confirm Password Field */}
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">
+                  Confirm Password
+                </label>
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                />
+              </div>
+
+              {/* Submit Button */}
+              <Button type="submit" disabled={isLoading} className="w-full">
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Sign Up
+              </Button>
+            </div>
+          </form>
+
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            </div>
           </div>
 
-          <div className="mb-5">
-            <input
-              type="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              className="w-full px-4 py-3 border border-light_grey rounded-lg text-base focus:outline-none focus:border-primary font-secondary"
-            />
+          {/* Social Login Buttons */}
+          <div className="flex gap-2">
+            <Button variant="outline" className="w-full">
+              <FcGoogle className="mr-2 h-4 w-4" />
+              Google
+            </Button>
+            <Button variant="outline" className="w-full">
+              <FaApple className="mr-2 h-4 w-4" />
+              Apple
+            </Button>
+            <Button variant="outline" className="w-full">
+              <FaFacebook className="mr-2 h-4 w-4" />
+              Facebook
+            </Button>
           </div>
 
-          <div className="mb-5">
-            <input
-              type="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-              className="w-full px-4 py-3 border border-light_grey rounded-lg text-base focus:outline-none focus:border-primary font-secondary"
-            />
-          </div>
-
-          <div className="mb-5">
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-              className="w-full px-4 py-3 border border-light_grey rounded-lg text-base focus:outline-none focus:border-primary font-secondary"
-            />
-          </div>
-
-          <button 
-            type="submit" 
-            className="w-full py-3 bg-primary text-white rounded-lg text-base font-medium hover:bg-opacity-90 transition-colors mb-5 font-secondary"
-          >
-            Create Account
-          </button>
-        </form>
-
-        <div className="relative text-center my-6">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-light_grey"></div>
-          </div>
-          <div className="relative">
-            <span className="px-2 text-sm text-sub_text bg-background font-secondary">
-              Or Sign up with
-            </span>
+          {/* Link to Login Page */}
+          <div className="text-center mt-6">
+            <p className="text-sm text-muted-foreground">
+              Already have an account?{" "}
+              <Link to="/login" className="font-medium text-primary hover:underline">
+                Log in
+              </Link>
+            </p>
           </div>
         </div>
-
-        <div className="grid grid-cols-3 gap-3 mb-5">
-          <button className="flex items-center justify-center gap-2 py-2.5 border border-light_grey rounded-lg hover:bg-light_grey transition-colors font-secondary">
-            <FcGoogle className="text-xl" />
-            <span className="text-sm">Google</span>
-          </button>
-          <button className="flex items-center justify-center gap-2 py-2.5 border border-light_grey rounded-lg hover:bg-light_grey transition-colors font-secondary">
-            <FaApple className="text-xl" />
-            <span className="text-sm">Apple ID</span>
-          </button>
-          <button className="flex items-center justify-center gap-2 py-2.5 border border-light_grey rounded-lg hover:bg-light_grey transition-colors font-secondary">
-            <FaFacebook className="text-xl text-blue-600" />
-            <span className="text-sm">Facebook</span>
-          </button>
-        </div>
-
-        <p className="text-center text-sub_text font-secondary">
-          Already have an account?{' '}
-          <Link to="/login" className="text-primary font-medium hover:underline">
-            Sign in
-          </Link>
-        </p>
       </div>
     </div>
   );

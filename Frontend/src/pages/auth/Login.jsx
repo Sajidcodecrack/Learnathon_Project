@@ -1,92 +1,140 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
-import { FaApple, FaFacebook } from 'react-icons/fa';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm, FormProvider } from "react-hook-form";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FcGoogle } from "react-icons/fc";
+import { FaApple, FaFacebook } from "react-icons/fa";
+import { Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "../../components/ui/button";
+import { FormControl, FormItem, FormLabel, FormMessage } from "../../components/ui/form";
+import { Input } from "../../components/ui/input";
+import { auth } from "./Firebase";
 
-function Login() {
-  const [credentials, setCredentials] = useState({
-    email: '',
-    password: ''
-  });
+export function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const formMethods = useForm(); // Initialize react-hook-form
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here
-  };
+  const { handleSubmit } = formMethods;
+
+  async function onSubmit(data) {
+    setIsLoading(true);
+    const { email, password } = data;
+
+    if (!email || !password) {
+      alert("Please enter email and password");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("User logged in:", userCredential.user);
+      alert("Login successful!");
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Invalid email or password");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-light_grey p-5">
-      <div className="bg-background p-8 rounded-2xl w-full max-w-[450px] shadow-lg">
-        <h1 className="text-3xl text-center mb-2 font-heading font-bold text-dark_grey">Login</h1>
-        <p className="text-center text-sub_text mb-8 font-secondary">
-          Hey, Enter your details to get sign in to your account
-        </p>
+    <div className="min-h-screen flex">
+      {/* Left Column - Cover Image */}
+      <div className="hidden lg:block w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+        <div className="h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <h1 className="text-4xl font-bold text-white">Welcome Back!</h1>
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-5">
-            <input
-              type="text"
-              placeholder="Enter Email / Phone No"
-              value={credentials.email}
-              onChange={(e) => setCredentials({...credentials, email: e.target.value})}
-              className="w-full px-4 py-3 border border-light_grey rounded-lg text-base focus:outline-none focus:border-primary font-secondary"
-            />
-          </div>
-
-          <div className="mb-5">
-            <input
-              type="password"
-              placeholder="Passcode"
-              value={credentials.password}
-              onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-              className="w-full px-4 py-3 border border-light_grey rounded-lg text-base focus:outline-none focus:border-primary font-secondary"
-            />
-          </div>
-
-
-          <button 
-            type="submit" 
-            className="w-full py-3 bg-primary text-white rounded-lg text-base font-medium hover:bg-opacity-90 transition-colors mb-5 font-secondary"
-          >
-            Sign in
-          </button>
-        </form>
-
-        <div className="relative text-center my-6">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-light_grey"></div>
-          </div>
-          <div className="relative">
-            <span className="px-2 text-sm text-sub_text bg-background font-secondary">
-              Or Sign in with
-            </span>
+      {/* Right Column - Login Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div className="w-full max-w-md">
+          <FormProvider {...formMethods}>
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold">Sign in to your account</h2>
+              <p className="text-muted-foreground">Enter your email and password to continue</p>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="grid gap-4">
+                <FormItem>
+                  <FormLabel className="sr-only" htmlFor="email">
+                    Email
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      id="email"
+                      placeholder="name@example.com"
+                      type="email"
+                      autoCapitalize="none"
+                      autoComplete="email"
+                      autoCorrect="off"
+                      disabled={isLoading}
+                      {...formMethods.register("email")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+                <FormItem>
+                  <FormLabel className="sr-only" htmlFor="password">
+                    Password
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      id="password"
+                      placeholder="Password"
+                      type="password"
+                      autoCapitalize="none"
+                      autoComplete="current-password"
+                      disabled={isLoading}
+                      {...formMethods.register("password")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+                <Button disabled={isLoading} className="w-full">
+                  {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Sign In
+                </Button>
+              </div>
+            </form>
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" className="w-full">
+                <FcGoogle className="mr-2 h-4 w-4" />
+                Google
+              </Button>
+              <Button variant="outline" className="w-full">
+                <FaApple className="mr-2 h-4 w-4" />
+                Apple
+              </Button>
+              <Button variant="outline" className="w-full">
+                <FaFacebook className="mr-2 h-4 w-4" />
+                Facebook
+              </Button>
+            </div>
+          </FormProvider>
+          <div className="text-center mt-6">
+            <p className="text-sm text-muted-foreground">
+              Don't have an account?{" "}
+              <Link to="/signup" className="font-medium text-primary hover:underline">
+                Sign up
+              </Link>
+            </p>
           </div>
         </div>
-
-        <div className="grid grid-cols-3 gap-3 mb-5">
-          <button className="flex items-center justify-center gap-2 py-2.5 border border-light_grey rounded-lg hover:bg-light_grey transition-colors font-secondary">
-            <FcGoogle className="text-xl" />
-            <span className="text-sm">Google</span>
-          </button>
-          <button className="flex items-center justify-center gap-2 py-2.5 border border-light_grey rounded-lg hover:bg-light_grey transition-colors font-secondary">
-            <FaApple className="text-xl" />
-            <span className="text-sm">Apple ID</span>
-          </button>
-          <button className="flex items-center justify-center gap-2 py-2.5 border border-light_grey rounded-lg hover:bg-light_grey transition-colors font-secondary">
-            <FaFacebook className="text-xl text-blue-600" />
-            <span className="text-sm">Facebook</span>
-          </button>
-        </div>
-
-        <p className="text-center text-sub_text font-secondary">
-          Don't have an account?{' '}
-          <Link to="/signup" className="text-primary font-medium hover:underline">
-            Signup Now
-          </Link>
-        </p>
+        
       </div>
     </div>
   );
 }
-
-export default Login;

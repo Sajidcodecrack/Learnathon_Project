@@ -1,221 +1,208 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
-import logo from "./assets/Fairbasket.png"; // Logo image
-import cart from "./assets/Cart.svg"; // Cart icon
-import camera from "./assets/Camera.svg"; // Camera icon
-import searchIcon from "./assets/Search.svg"; // Search icon
-import userIcon from "./assets/User.svg"; // User icon
-import packageicon from "./assets/Package.png"; // Package icon
-import { FaBars } from "react-icons/fa"; // Hamburger menu icon
+"use client";
+import logo from "./assets/Fairbasket.png";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../pages/auth/Firebase";
+import { Sun, Moon, ShoppingCart, Menu, Search, Camera } from "lucide-react"; // Added Camera icon
+import { Button } from "../ui/button";
+import { Toggle } from "../ui/toggle";
+import { Input } from "../ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "../ui/navigation-menu";
 
-// SignInButton Component
-const SignInButton = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer"
-  >
-    <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
-    <span className="text-xs">
-      Sign in <br /> Account
-    </span>
-  </button>
-);
+const Nav = () => {
+  const [theme, setTheme] = useState("light");
+  const [user, setUser] = useState(null);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
-// Prop Validation for SignInButton
-SignInButton.propTypes = {
-  onClick: PropTypes.func.isRequired, // Validate onClick as a required function
-};
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
-// ProfileButton Component
-const ProfileButton = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="h-12 px-4 sm:px-8 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 sm:gap-4 cursor-pointer"
-  >
-    <img src={userIcon} alt="User" className="h-4 w-4 sm:h-6 sm:w-6" />
-    <span className="text-xs">Profile</span>
-  </button>
-);
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
-// Prop Validation for ProfileButton
-ProfileButton.propTypes = {
-  onClick: PropTypes.func.isRequired, // Validate onClick as a required function
-};
-
-// Nav Component
-function Nav() {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const toggleMobileNav = () => {
-    setIsMobileNavOpen(!isMobileNavOpen);
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
-  const toggleLogin = () => {
-    setIsLoggedIn(!isLoggedIn);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   };
 
   return (
-    <div>
-      {/* Main Navigation Bar (Hidden on Small Screens) */}
-      <div className="font-secondary fixed top-0 right-0 left-0 bg-[#C8D76F] shadow-md h-24 hidden md:block z-50">
-        <div className="h-20 w-full flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 md:gap-6 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-32">
-          {/* Logo Section */}
-          <div className="h-6">
-            <img
-              src={logo}
-              alt="FairBasket Logo"
-              className="h-full object-contain"
-            />
-          </div>
+    <nav className="fixed top-0 w-full text-foreground py-4 px-4 md:px-8 lg:px-32 flex items-center justify-between z-50 border-b-2 bg-background/80 backdrop-blur-lg">
+      {/* Logo */}
+      <Link to="/" className="flex items-center">
+        <img src={logo} alt="FairBasket" className="h-8" />
+      </Link>
 
-          {/* Address Dropdown */}
-          <div className="h-12 p-2 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
-            <img
-              src={packageicon}
-              alt="Cart"
-              className="h-10 w-10 p-1 rounded-full"
-            />
-            <span className="text-xs ">
-              How do you want <br /> your items?
-            </span>
-            <span className="text-lg px-3 hidden sm:block">▼</span>
-          </div>
+      {/* Desktop Navigation */}
+      <div className="hidden lg:flex items-center space-x-6">
+        {/* Products Dropdown */}
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <a
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/"
+                      >
+                        <div className="mb-2 mt-4 text-lg font-medium">Featured Products</div>
+                        <p className="text-sm leading-tight text-muted-foreground">
+                          Check out our latest and most popular items
+                        </p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <a href="/categories/electronics">Electronics</a>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <a href="/categories/clothing">Clothing</a>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <a href="/categories/home">Home & Garden</a>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
 
-          {/* Search Section */}
-          <div className="h-12 w-[500px] bg-white rounded-full flex items-center px-4">
-            <input
-              type="text"
-              placeholder="Search any item you want"
-              className="placeholder-dark_grey w-full h-12 outline-none text-dark_grey  ml-3 placeholder:text-sm"
-            />
-
-            <button className="h-10 w-12 mx-1 bg-[#EEF3CD] rounded-full flex items-center justify-center">
-              <img src={camera} alt="Search" className="h-5 w-5" />
-            </button>
-
-            <button className="h-10 w-12 bg-[#A2BB5D] mx-1 rounded-full flex items-center justify-center">
-              <img src={searchIcon} alt="Search" className="h-6 w-6" />
-            </button>
-          </div>
-
-          {/* Sign-in/Profile Section */}
-          {isLoggedIn ? (
-            <ProfileButton onClick={toggleLogin} />
-          ) : (
-            <SignInButton onClick={toggleLogin} />
-          )}
-
-          {/* Cart Section */}
-          <button className="flex-row items-center gap-2 text-[#A2BB5D] cursor-pointer">
-            <div>
-              <img src={cart} alt="Cart" className="h-6 w-8 sm:h-8 sm:w-8" />
-            </div>
-            <div>
-              <span className="text-xs sm:text-sm text-white">0.00 $</span>
-            </div>
-          </button>
-        </div>
-        <div className="h-8 bg-[#EEF3CD] flex gap-8 px-32 items-center">
-          <h3>Discounted</h3>
-          <h3>Best prices</h3>
-          <h3>Dairy</h3>
-          <h3>Fresh</h3>
-        </div>
-      </div>
-
-      {/* Mobile Navigation Bar (Visible on Small Screens) */}
-      <div className="font-secondary fixed top-0 right-0 left-0 bg-[#C8D76F] shadow-md h-16 block md:hidden z-50">
-        <div className="h-full w-full flex items-center justify-between px-4">
-          {/* Logo Section */}
-          <div className="h-6">
-            <img
-              src={logo}
-              alt="FairBasket Logo"
-              className="h-full object-contain"
-            />
-          </div>
-
-          {/* Hamburger Menu */}
-          <button
-            onClick={toggleMobileNav}
-            className="text-white focus:outline-none"
-          >
-            <FaBars className="h-6 w-6" />
-          </button>
+        {/* Search Bar */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search products..."
+            className="pl-10 pr-4 py-2 w-64 bg-muted"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
 
-        {/* Mobile Nav Dropdown */}
-        {isMobileNavOpen && (
-          <div className="bg-[#C8D76F] w-full absolute top-16 left-0 shadow-lg z-50">
-            <div className="flex flex-col items-center gap-4 p-4">
-              {/* Address Dropdown */}
-              <div className="h-12 p-2 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer">
-                <img
-                  src={packageicon}
-                  alt="Cart"
-                  className="h-10 w-10 p-1 rounded-full"
-                />
-                <span className="text-xs ">
-                  How do you want <br /> your items?
-                </span>
-              </div>
+        {/* Camera Button */}
+        <Button variant="ghost" size="icon" aria-label="Camera">
+          <Camera className="h-5 w-5" />
+        </Button>
 
-              {/* Search Section */}
-              <div className="h-12 w-full bg-black rounded-full flex items-center px-4">
-                <input
-                  type="text"
-                  placeholder="Search any item you "
-                  className="placeholder-dark_grey w-full h-12 outline-none text-dark_grey ml-3 placeholder:text-sm"
-                />
+        {/* Cart Button */}
+        <Button variant="outline" className="flex items-center gap-2">
+          <ShoppingCart className="h-5 w-5" />
+          <span>Cart</span>
+        </Button>
 
-                <button className="h-10 w-10 mx-1 bg-[#EEF3CD] rounded-full flex items-center justify-center">
-                  <img src={camera} alt="Search" className="h-5 w-5" />
-                </button>
-
-                <button className="h-10 w-10 bg-[#A2BB5D] mx-1 rounded-full flex items-center justify-center">
-                  <img src={searchIcon} alt="Search" className="h-6 w-6" />
-                </button>
-              </div>
-
-              {/* Sign-in/Profile Section in Mobile Menu */}
-              {isLoggedIn ? (
-                <button
-                  onClick={toggleLogin}
-                  className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer"
-                >
-                  <img src={userIcon} alt="User" className="h-4 w-4" />
-                  <span className="text-xs">
-                    My Profile <br /> Settings
-                  </span>
-                </button>
-              ) : (
-                <button
-                  onClick={toggleLogin}
-                  className="h-12 px-4 bg-[#A2BB5D] text-white rounded-full flex items-center gap-2 cursor-pointer"
-                >
-                  <img src={userIcon} alt="User" className="h-4 w-4" />
-                  <span className="text-xs">
-                    Sign in <br /> Account
-                  </span>
-                </button>
-              )}
-
-              {/* Cart Section */}
-              <button className="flex-row items-center gap-2 text-[#A2BB5D] cursor-pointer">
-                <div>
-                  <img src={cart} alt="Cart" className="h-6 w-8" />
-                </div>
-                <div>
-                  <span className="text-xs text-white">0.00 $</span>
-                </div>
-              </button>
-            </div>
-          </div>
+        {/* Auth Buttons */}
+        {user ? (
+          <Button onClick={handleLogout} variant="destructive">
+            Logout
+          </Button>
+        ) : (
+          <Button onClick={() => navigate("/login")} variant="default">
+            Sign In
+          </Button>
         )}
+
+        {/* Theme Toggle */}
+        <Toggle onClick={toggleTheme} aria-label="Toggle theme">
+          {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+        </Toggle>
       </div>
-    </div>
+
+      {/* Mobile Navigation */}
+      <div className="lg:hidden flex items-center space-x-4">
+        {/* Camera Button */}
+        <Button variant="ghost" size="icon" aria-label="Camera">
+          <Camera className="h-5 w-5" />
+        </Button>
+
+        {/* Mobile Menu */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Menu className="h-6 w-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right">
+            <div className="flex flex-col h-full">
+              <div className="flex-1 py-4">
+                <div className="mb-4">
+                  <Input
+                    type="text"
+                    placeholder="Search products..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+                <nav className="space-y-4">
+                  <Link to="/products" className="block py-2 hover:underline">
+                    Products
+                  </Link>
+                  <Link to="/about" className="block py-2 hover:underline">
+                    About
+                  </Link>
+                  <Link to="/contact" className="block py-2 hover:underline">
+                    Contact
+                  </Link>
+                </nav>
+              </div>
+              <div className="border-t pt-4">
+                <Button variant="outline" className="w-full mb-2">
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  Cart
+                </Button>
+                {user ? (
+                  <Button onClick={handleLogout} variant="destructive" className="w-full">
+                    Logout
+                  </Button>
+                ) : (
+                  <Button onClick={() => navigate("/login")} variant="default" className="w-full">
+                    Sign In
+                  </Button>
+                )}
+                <div className="mt-4 flex justify-between items-center">
+                  <span>Theme</span>
+                  <Toggle onClick={toggleTheme} aria-label="Toggle theme">
+                    {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+                  </Toggle>
+                </div>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </nav>
   );
-}
+};
 
 export default Nav;

@@ -1,3 +1,135 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 150, 40%, 95%; /* Softer Mint Green */
+    --foreground: 150, 30%, 20%; /* Darker Green for readability */
+    --primary: 120, 70%, 40%; /* Deeper Vibrant Green */
+    --primary-foreground: 120, 100%, 92%; /* Slightly stronger contrast */
+    --secondary: 45, 85%, 55%; /* Deeper Golden Yellow */
+    --secondary-foreground: 45, 100%, 15%; /* Stronger contrast */
+    --muted: 150, 25%, 85%; /* Darker Muted Pastel Green */
+    --muted-foreground: 150, 25%, 35%; /* Darker for readability */
+    --accent: 25, 85%, 60%; /* Orangish Accent Color */
+    --accent-foreground: 25, 100%, 15%; /* Darker Orange for contrast */
+    --destructive: 0, 84.2%, 55%; /* Slightly darker Red */
+    --destructive-foreground: 0, 0%, 100%; /* Pure White */
+    --border: 150, 35%, 70%; /* Darker for better contrast */
+    --input: 150, 35%, 70%; /* Matches border for consistency */
+    --ring: 120, 70%, 40%; /* Deeper Green */
+    --radius: 0.5rem; /* Border Radius */
+  }
+
+  .dark {
+    --background: 150, 15%, 10%; /* Deep Forest Green */
+    --foreground: 150, 100%, 95%; /* Almost White Green */
+    --primary: 120, 50%, 60%; /* Soft Green */
+    --primary-foreground: 120, 100%, 90%; /* Light Green */
+    --secondary: 45, 80%, 60%; /* Warm Golden Yellow */
+    --secondary-foreground: 45, 80%, 20%; /* Dark Golden Yellow */
+    --muted: 150, 20%, 18%; /* Dark Muted Green */
+    --muted-foreground: 150, 20%, 70%; /* Soft Green */
+    --accent: 25, 70%, 60%; /* Orangish Accent Color */
+    --accent-foreground: 25, 90%, 20%; /* Darker Orange for contrast */
+    --destructive: 0, 62.8%, 30.6%; /* Dark Red */
+    --destructive-foreground: 0, 0%, 98%; /* White */
+    --border: 150, 20%, 25%; /* Dark Green Border */
+    --input: 150, 20%, 25%; /* Dark Green Input */
+    --ring: 120, 50%, 60%; /* Soft Green Ring */
+  }
+}
+
+@layer base {
+  @layer base {
+    .grid-background {
+      position: relative;
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    }
+  
+    .grid-background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(237, 247, 243) 70%);
+      pointer-events: none;
+    }
+  
+    .dark .grid-background::before {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgb(21, 29, 26) 70%);
+    }
+  }
+  
+
+  :root {
+    --grid-color: theme('colors.grid.light'); /* Light mode grid color */
+  }
+
+  .dark {
+    --grid-color: theme('colors.grid.dark'); /* Dark mode grid color */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes float1 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes float3 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float4 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25px);
+  }
+}
+
+.animate-float1 {
+  animation: float1 6s ease-in-out infinite;
+}
+
+.animate-float2 {
+  animation: float2 5s ease-in-out infinite;
+}
+
+.animate-float3 {
+  animation: float3 4s ease-in-out infinite;
+}
+
+.animate-float4 {
+  animation: float4 7s ease-in-out infinite;
+}
