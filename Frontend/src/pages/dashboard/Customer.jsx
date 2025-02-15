@@ -75,10 +75,11 @@ const CustomerDashboard = () => {
   return (
     <div>
       <Nav />
-      <div className="container mx-32 py-4 space-y-6 pt-20">
+      <div className="container mx-auto px-4 py-4 space-y-6 pt-20">
         <h1 className="text-3xl font-bold">Customer Dashboard</h1>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {/* Responsive Grid for Dashboard Cards */}
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <DashboardCard
             title="Total Orders"
             value="23"
@@ -105,13 +106,25 @@ const CustomerDashboard = () => {
           />
         </div>
 
+        {/* Responsive Tabs */}
         <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="orders">Orders</TabsTrigger>
-            <TabsTrigger value="account">Account</TabsTrigger>
-            <TabsTrigger value="addresses">Addresses</TabsTrigger>
+          {/* TabsList with Horizontal Scroll on Mobile */}
+          <TabsList className="w-full flex overflow-x-auto sm:overflow-visible">
+            <TabsTrigger value="overview" className="flex-shrink-0">
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="orders" className="flex-shrink-0">
+              Orders
+            </TabsTrigger>
+            <TabsTrigger value="account" className="flex-shrink-0">
+              Account
+            </TabsTrigger>
+            <TabsTrigger value="addresses" className="flex-shrink-0">
+              Addresses
+            </TabsTrigger>
           </TabsList>
+
+          {/* TabsContent */}
           <TabsContent value="overview" className="space-y-4">
             <RecentOrders />
             <AccountOverview />
