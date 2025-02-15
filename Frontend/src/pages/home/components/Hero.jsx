@@ -15,52 +15,60 @@ function Hero() {
         <div className="absolute inset-0 overflow-hidden hidden lg:block">
           {/* Bottom Section Images */}
         <img
-          src="./Bento1.jpg" // Replace with your image path
+          src="./Hero1.webp" // Replace with your image path
           alt="Floating Image 1"
-          className="absolute w-24 h-24 animate-float1 rounded-md transform rotate-6"
+          className="absolute w-24 h-24 animate-float1 rounded-md transform rotate-6 object-cover"
           style={{ bottom: "20%", left: "35%" }}
+          loading="lazy"
         />
         <img
-          src="./Bento2.jpg" // Replace with your image path
+          src="./Hero2.webp" // Replace with your image path
           alt="Floating Image 2"
-          className="absolute w-20 h-20 animate-float2 rounded-md transform -rotate-3"
+          className="absolute w-20 h-20 animate-float2 rounded-md transform -rotate-3 object-cover"
           style={{ bottom: "25%", right: "10%" }}
+          loading="lazy"
         />
         <img
-          src="./Bento3.jpg" // Replace with your image path
+          src="./Hero3.webp" // Replace with your image path
           alt="Floating Image 3"
-          className="absolute w-16 h-16 animate-float3 rounded-md transform rotate-12"
+          className="absolute w-16 h-16 animate-float3 rounded-md transform rotate-12 object-cover"
           style={{ bottom: "15%", left: "20%" }}
+          loading="lazy"
         />
         <img
-          src="./Bento4.jpg" // Replace with your image path
+          src="./Hero4.webp" // Replace with your image path
           alt="Floating Image 4"
-          className="absolute w-28 h-28 animate-float4 rounded-md transform -rotate-6"
+          className="absolute w-28 h-28 animate-float4 rounded-md transform -rotate-6 object-cover"
           style={{ bottom: "30%", left: "10%" }}
+          loading="lazy"
         />
         <img
-          src="./Bento5.jpg" // Replace with your image path
+          src="./Hero5.webp" // Replace with your image path
           alt="Floating Image 5"
-          className="absolute w-24 h-24 animate-float1 rounded-md transform rotate-3"
+          className="absolute w-24 h-24 animate-float1 rounded-md transform rotate-3 object-cover"
           style={{ bottom: "10%", right: "20%" }}
+          loading="lazy"
         />
         <img
-          src="./Bento6.jpg" // Replace with your image path
+          src="./Hero6.webp" // Replace with your image path
           alt="Floating Image 6"
-          className="absolute w-20 h-20 animate-float2 rounded-md transform -rotate-12"
+          className="absolute w-20 h-20 animate-float2 rounded-md transform -rotate-12 object-cover"
           style={{ bottom: "35%", left: "30%" }}
+          loading="lazy"
         />
         <img
-          src="./Bento3.jpg" // Replace with your image path
+          src="./Hero7.webp" // Replace with your image path
           alt="Floating Image 7"
-          className="absolute w-16 h-16 animate-float3 rounded-md transform rotate-6"
+          className="absolute w-16 h-16 animate-float3 rounded-md transform rotate-6 object-cover"
           style={{ bottom: "5%", right: "45%" }}
+          loading="lazy"
         />
         <img
-          src="./Bento4.jpg" // Replace with your image path
+          src="./Hero8.webp" // Replace with your image path
           alt="Floating Image 8"
-          className="absolute w-28 h-28 animate-float4 rounded-md transform -rotate-3"
+          className="absolute w-28 h-28 animate-float4 rounded-md transform -rotate-3 object-cover"
           style={{ bottom: "20%", right: "35%" }}
+          loading="lazy"
         />
       </div>
 
