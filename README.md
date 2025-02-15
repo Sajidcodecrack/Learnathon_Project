@@ -54,7 +54,6 @@ The application will start running on `http://localhost:5173` (or another port i
 ### Frontend Tech Stack
 - React 18
 - Vite
-- Three.js (for 3D graphics)
 - React Router DOM (for routing)
 - Tailwind CSS (for styling)
 
