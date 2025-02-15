@@ -1,9 +1,9 @@
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
+import * as React from "react";
+import PropTypes from "prop-types";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cn } from "../../lib/utils";
 
-import { cn } from "../../lib/utils"
-
-const Tabs = TabsPrimitive.Root
+const Tabs = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.List
@@ -13,8 +13,11 @@ const TabsList = React.forwardRef(({ className, ...props }, ref) => (
       className
     )}
     {...props} />
-))
-TabsList.displayName = TabsPrimitive.List.displayName
+));
+TabsList.propTypes = {
+  className: PropTypes.string,
+};
+TabsList.displayName = TabsPrimitive.List.displayName;
 
 const TabsTrigger = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Trigger
@@ -24,8 +27,11 @@ const TabsTrigger = React.forwardRef(({ className, ...props }, ref) => (
       className
     )}
     {...props} />
-))
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
+));
+TabsTrigger.propTypes = {
+  className: PropTypes.string,
+};
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 const TabsContent = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
@@ -35,7 +41,10 @@ const TabsContent = React.forwardRef(({ className, ...props }, ref) => (
       className
     )}
     {...props} />
-))
-TabsContent.displayName = TabsPrimitive.Content.displayName
+));
+TabsContent.propTypes = {
+  className: PropTypes.string,
+};
+TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export { Tabs, TabsList, TabsTrigger, TabsContent };
