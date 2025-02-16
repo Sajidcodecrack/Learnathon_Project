@@ -29,25 +29,25 @@ const products = [
     id: 1,
     name: "Organic Apples",
     description: "Freshly picked organic apples from local farms.",
-    image: "https://via.placeholder.com/150",
+    image: "./Bento1.jpg",
   },
   {
     id: 2,
     name: "Farm Fresh Milk",
     description: "Pure and fresh milk directly from dairy farms.",
-    image: "https://via.placeholder.com/150",
+    image: "./Bento1.jpg",
   },
   {
     id: 3,
     name: "Natural Honey",
     description: "Raw and unfiltered honey from trusted beekeepers.",
-    image: "https://via.placeholder.com/150",
+    image: "./Bento1.jpg",
   },
   {
     id: 4,
     name: "Organic Vegetables",
     description: "Healthy and chemical-free vegetables.",
-    image: "https://via.placeholder.com/150",
+    image: "./Bento1.jpg",
   },
 ];
 

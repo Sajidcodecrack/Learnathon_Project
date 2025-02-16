@@ -51,9 +51,9 @@ const Nav = () => {
   return (
     <nav className="fixed top-0 w-full text-foreground py-4 px-4 md:px-8 lg:px-32 flex items-center justify-between z-50 border-b-2 bg-background/80 backdrop-blur-lg">
       {/* Logo */}
-      <Link to="/" className="flex items-center">
-        <img src={logo} alt="FairBasket" className="h-8" />
-      </Link>
+      <div>
+        <h1 className="text-muted-foreground text-3xl font-praise font-black">FairBasket<span className="text-primary">.</span></h1>
+      </div>
 
       {/* Desktop Navigation */}
       <div className="hidden lg:flex items-center space-x-6">
