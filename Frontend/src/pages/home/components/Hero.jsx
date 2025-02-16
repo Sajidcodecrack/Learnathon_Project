@@ -9,67 +9,32 @@ function Hero() {
 
   if (!mounted) return null;
 
+  // Image Data for Floating Pictures
+  const floatingImages = [
+    { src: "./Hero1.webp", alt: "Farmers' Market", style: { bottom: "20%", left: "35%" }, animation: "animate-float1" },
+    { src: "./Hero2.webp", alt: "Fresh Produce", style: { bottom: "25%", right: "10%" }, animation: "animate-float2" },
+    { src: "./Hero3.webp", alt: "Organic Goods", style: { bottom: "15%", left: "20%" }, animation: "animate-float3" },
+    { src: "./Hero4.webp", alt: "Local Harvest", style: { bottom: "30%", left: "10%" }, animation: "animate-float4" },
+    { src: "./Hero5.webp", alt: "Healthy Choices", style: { bottom: "10%", right: "20%" }, animation: "animate-float1" },
+    { src: "./Hero6.webp", alt: "Community Farming", style: { bottom: "35%", left: "30%" }, animation: "animate-float2" },
+    { src: "./Hero7.webp", alt: "Sustainable Crops", style: { bottom: "5%", right: "45%" }, animation: "animate-float3" },
+    { src: "./Hero8.webp", alt: "Wholesale Farming", style: { bottom: "20%", right: "35%" }, animation: "animate-float4" },
+  ];
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background pt-16 -mt-2 grid-background">
       {/* Floating Pictures */}
-        <div className="absolute inset-0 overflow-hidden hidden lg:block">
-          {/* Bottom Section Images */}
-        <img
-          src="./Hero1.webp" // Replace with your image path
-          alt="Floating Image 1"
-          className="absolute w-24 h-24 animate-float1 rounded-md transform rotate-6 object-cover"
-          style={{ bottom: "20%", left: "35%" }}
-          loading="lazy"
-        />
-        <img
-          src="./Hero2.webp" // Replace with your image path
-          alt="Floating Image 2"
-          className="absolute w-20 h-20 animate-float2 rounded-md transform -rotate-3 object-cover"
-          style={{ bottom: "25%", right: "10%" }}
-          loading="lazy"
-        />
-        <img
-          src="./Hero3.webp" // Replace with your image path
-          alt="Floating Image 3"
-          className="absolute w-16 h-16 animate-float3 rounded-md transform rotate-12 object-cover"
-          style={{ bottom: "15%", left: "20%" }}
-          loading="lazy"
-        />
-        <img
-          src="./Hero4.webp" // Replace with your image path
-          alt="Floating Image 4"
-          className="absolute w-28 h-28 animate-float4 rounded-md transform -rotate-6 object-cover"
-          style={{ bottom: "30%", left: "10%" }}
-          loading="lazy"
-        />
-        <img
-          src="./Hero5.webp" // Replace with your image path
-          alt="Floating Image 5"
-          className="absolute w-24 h-24 animate-float1 rounded-md transform rotate-3 object-cover"
-          style={{ bottom: "10%", right: "20%" }}
-          loading="lazy"
-        />
-        <img
-          src="./Hero6.webp" // Replace with your image path
-          alt="Floating Image 6"
-          className="absolute w-20 h-20 animate-float2 rounded-md transform -rotate-12 object-cover"
-          style={{ bottom: "35%", left: "30%" }}
-          loading="lazy"
-        />
-        <img
-          src="./Hero7.webp" // Replace with your image path
-          alt="Floating Image 7"
-          className="absolute w-16 h-16 animate-float3 rounded-md transform rotate-6 object-cover"
-          style={{ bottom: "5%", right: "45%" }}
-          loading="lazy"
-        />
-        <img
-          src="./Hero8.webp" // Replace with your image path
-          alt="Floating Image 8"
-          className="absolute w-28 h-28 animate-float4 rounded-md transform -rotate-3 object-cover"
-          style={{ bottom: "20%", right: "35%" }}
-          loading="lazy"
-        />
+      <div className="absolute inset-0 overflow-hidden hidden lg:block">
+        {floatingImages.map((img, index) => (
+          <img
+            key={img.src} // Using src as a unique key
+            src={img.src}
+            alt={img.alt}
+            className={`absolute w-24 h-24 rounded-md transform object-cover ${img.animation}`}
+            style={img.style}
+            loading="lazy"
+          />
+        ))}
       </div>
 
       {/* Content */}
@@ -77,8 +42,7 @@ function Hero() {
         {/* Welcome Badge */}
         <div className="mx-auto mb-8 flex justify-center">
           <div className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-sm text-foreground">
-            <span>Welcome to FairBasket</span>
-            <span className="ml-2">🛒</span>
+            <span>Welcome to FairBasket</span> <span className="ml-2">🛒</span>
           </div>
         </div>
 
