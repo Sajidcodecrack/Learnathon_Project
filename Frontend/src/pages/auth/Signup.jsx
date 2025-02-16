@@ -38,12 +38,34 @@ function Signup() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log("User created:", user);
-      alert("Account created successfully!");
-      // Redirect or update state as needed
+
+      // Send user data to your backend
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          uid: user.uid, // Firebase UID
+          fullName,
+          email,
+          password, // Optional: Only if you want to store it
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Account created successfully!");
+      } else {
+        alert(data.message || "Error creating account");
+      }
     } catch (error) {
-      console.error("Error signing up:", error.message);
-      alert(error.message);
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email is already in use. Please use a different email.");
+      } else {
+        console.error("Error signing up:", error.message);
+        alert(error.message);
+      }
     } finally {
       setIsLoading(false);
     }
