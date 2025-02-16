@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Tabs,
   TabsContent,
@@ -36,6 +37,13 @@ const DashboardCard = ({ title, value, description, icon }) => (
     </CardContent>
   </Card>
 );
+
+DashboardCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  description: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired
+};
 
 const AccountOverview = () => (
   <Card>

@@ -1,6 +1,7 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table"
-import { Badge } from "../../../components/ui/badge"
+import PropTypes from "prop-types";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table";
+import { Badge } from "../../../components/ui/badge";
 
 const orders = [
   { id: "ORD001", date: "2023-05-01", total: "$125.00", status: "Delivered" },
@@ -8,20 +9,24 @@ const orders = [
   { id: "ORD003", date: "2023-05-22", total: "$249.50", status: "Shipped" },
   { id: "ORD004", date: "2023-06-01", total: "$99.00", status: "Delivered" },
   { id: "ORD005", date: "2023-06-10", total: "$189.99", status: "Processing" },
-]
+];
 
 const OrderStatus = ({ status }) => {
   const statusStyles = {
     Delivered: "bg-green-100 text-green-800",
     Processing: "bg-yellow-100 text-yellow-800",
     Shipped: "bg-blue-100 text-blue-800",
-  }
+  };
 
-  return <Badge className={statusStyles[status] || "bg-gray-100 text-gray-800"}>{status}</Badge>
-}
+  return <Badge className={statusStyles[status] || "bg-gray-100 text-gray-800"}>{status}</Badge>;
+};
+
+OrderStatus.propTypes = {
+  status: PropTypes.oneOf(["Delivered", "Processing", "Shipped"]).isRequired
+};
 
 const RecentOrders = ({ fullList = false }) => {
-  const displayOrders = fullList ? orders : orders.slice(0, 3)
+  const displayOrders = fullList ? orders : orders.slice(0, 3);
 
   return (
     <Card>
@@ -54,8 +59,11 @@ const RecentOrders = ({ fullList = false }) => {
         </Table>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default RecentOrders
+RecentOrders.propTypes = {
+  fullList: PropTypes.bool
+};
 
+export default RecentOrders;

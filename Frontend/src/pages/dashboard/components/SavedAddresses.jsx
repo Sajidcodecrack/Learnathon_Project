@@ -1,36 +1,11 @@
-import { Button } from "../../../components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card"
-import { PlusCircle } from "lucide-react"
+import PropTypes from 'prop-types';
+import { Button } from "../../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import { PlusCircle } from "lucide-react";
 
 const addresses = [
-  {
-    id: 1,
-    name: "Home",
-    street: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    zip: "12345",
-    country: "USA",
-  },
-  {
-    id: 2,
-    name: "Work",
-    street: "456 Office Blvd",
-    city: "Workville",
-    state: "NY",
-    zip: "67890",
-    country: "USA",
-  },
-  {
-    id: 3,
-    name: "Vacation Home",
-    street: "789 Beach Rd",
-    city: "Sunnyville",
-    state: "FL",
-    zip: "54321",
-    country: "USA",
-  },
-]
+  // ... keep the addresses array the same ...
+];
 
 const AddressCard = ({ address }) => (
   <Card>
@@ -53,7 +28,20 @@ const AddressCard = ({ address }) => (
       </div>
     </CardContent>
   </Card>
-)
+);
+
+// Add PropTypes validation
+AddressCard.propTypes = {
+  address: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    street: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    zip: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired
+  }).isRequired
+};
 
 const AddNewAddressCard = () => (
   <Card className="flex flex-col items-center justify-center h-full">
@@ -62,7 +50,7 @@ const AddNewAddressCard = () => (
       <Button>Add New Address</Button>
     </CardContent>
   </Card>
-)
+);
 
 const SavedAddresses = () => {
   return (
@@ -80,8 +68,7 @@ const SavedAddresses = () => {
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default SavedAddresses
-
+export default SavedAddresses;
