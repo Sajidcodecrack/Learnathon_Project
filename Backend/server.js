@@ -48,8 +48,49 @@ mongoose
     console.error("Error connecting to MongoDB:", err.message);
   });
 
+// Input Validation Middleware
+const validateUserInput = (req, res, next) => {
+  const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Invalid email format" });
+  }
+
+  // Basic password validation (e.g., minimum length)
+  if (password.length < 8) {
+    return res.status(400).json({ error: "Password must be at least 8 characters long" });
+  }
+
+  next();
+};
+
 // Mount the user routes under /api
 app.use("/api", userRoutes);
+
+// Example of a safe query using Mongoose
+app.post("/api/users", validateUserInput, async (req, res) => {
+  const { username, email, password } = req.body;
+
+  try {
+    // Use Mongoose's built-in methods to safely create a new user
+    const newUser = await mongoose.model("User").create({
+      username,
+      email,
+      password, // Ensure passwords are hashed before storing in the database
+    });
+
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 // Start Server
 app.listen(PORT, () => {
