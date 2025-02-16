@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple, FaFacebook } from "react-icons/fa";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -8,7 +8,9 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { auth } from "./Firebase";
 
+
 function Signup() {
+  const navigate = useNavigate(); // Initialize navigate function
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -36,26 +38,24 @@ function Signup() {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
-      // Send user data to your backend
+      // Send user data to the backend
       const response = await fetch("http://localhost:5000/api/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uid: user.uid, // Firebase UID
-          fullName,
-          email,
-          password, // Optional: Only if you want to store it
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uid: user.uid, fullName, email }),
       });
 
       const data = await response.json();
       if (response.ok) {
         alert("Account created successfully!");
+        navigate("/"); // Redirect to home page after successful sign-up
       } else {
         alert(data.message || "Error creating account");
       }
@@ -82,7 +82,13 @@ function Signup() {
   return (
     <div className="min-h-screen flex">
       {/* Left Column - Cover Image */}
-      <div className="hidden lg:block w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1656832020447-bc9446b5028a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+      <div
+        className="hidden lg:block w-1/2 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1656832020447-bc9446b5028a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        }}
+      >
         <div className="h-full bg-black bg-opacity-50 flex items-center justify-center">
           <h1 className="text-4xl font-bold text-white">Join Us!</h1>
         </div>
@@ -93,13 +99,18 @@ function Signup() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold">Create your account</h2>
-            <p className="text-muted-foreground">Enter your details to get started</p>
+            <p className="text-muted-foreground">
+              Enter your details to get started
+            </p>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4">
               {/* Full Name Field */}
               <div>
-                <label htmlFor="fullName" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="fullName"
+                  className="block text-sm font-medium mb-1"
+                >
                   Full Name
                 </label>
                 <Input
@@ -115,7 +126,10 @@ function Signup() {
 
               {/* Email Field */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-1"
+                >
                   Email
                 </label>
                 <Input
@@ -131,7 +145,10 @@ function Signup() {
 
               {/* Password Field */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium mb-1"
+                >
                   Password
                 </label>
                 <Input
@@ -147,7 +164,10 @@ function Signup() {
 
               {/* Confirm Password Field */}
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium mb-1"
+                >
                   Confirm Password
                 </label>
                 <Input
@@ -175,7 +195,9 @@ function Signup() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
             </div>
           </div>
 
@@ -199,7 +221,10 @@ function Signup() {
           <div className="text-center mt-6">
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link to="/login" className="font-medium text-primary hover:underline">
+              <Link
+                to="/login"
+                className="font-medium text-primary hover:underline"
+              >
                 Log in
               </Link>
             </p>
