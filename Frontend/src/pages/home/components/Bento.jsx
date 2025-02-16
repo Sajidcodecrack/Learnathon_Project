@@ -1,5 +1,3 @@
-import React from "react";
-
 const Bento = () => {
   return (
     <div className="lg:px-32 md:px-16 px-4 h-[110%] py-10 z-10">

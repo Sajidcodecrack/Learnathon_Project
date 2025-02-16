@@ -14,7 +14,7 @@ import { auth } from "./Firebase";
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const formMethods = useForm(); // Initialize react-hook-form
+  const formMethods = useForm();
 
   const { handleSubmit } = formMethods;
 
@@ -126,14 +126,13 @@ export function LoginForm() {
           </FormProvider>
           <div className="text-center mt-6">
             <p className="text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link to="/signup" className="font-medium text-primary hover:underline">
                 Sign up
               </Link>
             </p>
           </div>
         </div>
-        
       </div>
     </div>
   );
