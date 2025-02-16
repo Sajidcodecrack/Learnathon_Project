@@ -1,113 +1,92 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { cn } from "../../lib/utils";
+import { cn } from "../../lib/utils"; // Utility for class name concatenation
 
-const Table = React.forwardRef(({ className, ...props }, ref) => (
+// Table Component
+const Table = React.forwardRef(({ className, children, ...props }, ref) => (
   <div className="relative w-full overflow-auto">
-    <table
-      ref={ref}
-      className={cn("w-full caption-bottom text-sm", className)}
-      {...props}
-    />
+    <table ref={ref} className={cn("w-full caption-bottom text-sm", className)} {...props}>
+      {children}
+    </table>
   </div>
 ));
 Table.propTypes = {
   className: PropTypes.string,
+  children: PropTypes.node,
 };
 Table.displayName = "Table";
 
-const TableHeader = React.forwardRef(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
+// TableHeader Component
+const TableHeader = React.forwardRef(({ className, children, ...props }, ref) => (
+  <thead ref={ref} className={cn("border-b bg-gray-100", className)} {...props}>
+    <tr>
+      <TableHead>Header 1</TableHead>
+      <TableHead>Header 2</TableHead>
+      <TableHead>Header 3</TableHead>
+    </tr>
+  </thead>
 ));
 TableHeader.propTypes = {
   className: PropTypes.string,
+  children: PropTypes.node,
 };
 TableHeader.displayName = "TableHeader";
 
+// TableBody Component
 const TableBody = React.forwardRef(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
-    {...props}
-  />
+  <tbody ref={ref} className={cn("divide-y", className)} {...props} />
 ));
 TableBody.propTypes = {
   className: PropTypes.string,
 };
 TableBody.displayName = "TableBody";
 
+// TableFooter Component
 const TableFooter = React.forwardRef(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
-      className
-    )}
-    {...props}
-  />
+  <tfoot ref={ref} className={cn("border-t bg-gray-50 font-medium", className)} {...props} />
 ));
 TableFooter.propTypes = {
   className: PropTypes.string,
 };
 TableFooter.displayName = "TableFooter";
 
+// TableRow Component
 const TableRow = React.forwardRef(({ className, ...props }, ref) => (
-  <tr
-    ref={ref}
-    className={cn(
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
-      className
-    )}
-    {...props}
-  />
+  <tr ref={ref} className={cn("border-b hover:bg-gray-100", className)} {...props} />
 ));
 TableRow.propTypes = {
   className: PropTypes.string,
 };
 TableRow.displayName = "TableRow";
 
+// TableHead Component (for column headers)
 const TableHead = React.forwardRef(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      "h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-      className
-    )}
-    {...props}
-  />
+  <th ref={ref} className={cn("px-4 py-2 text-left font-medium text-gray-700", className)} {...props} />
 ));
 TableHead.propTypes = {
   className: PropTypes.string,
 };
 TableHead.displayName = "TableHead";
 
+// TableCell Component
 const TableCell = React.forwardRef(({ className, ...props }, ref) => (
-  <td
-    ref={ref}
-    className={cn(
-      "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-      className
-    )}
-    {...props}
-  />
+  <td ref={ref} className={cn("px-4 py-2", className)} {...props} />
 ));
 TableCell.propTypes = {
   className: PropTypes.string,
 };
 TableCell.displayName = "TableCell";
 
+// TableCaption Component
 const TableCaption = React.forwardRef(({ className, ...props }, ref) => (
-  <caption
-    ref={ref}
-    className={cn("mt-4 text-sm text-muted-foreground", className)}
-    {...props}
-  />
+  <caption ref={ref} className={cn("mt-2 text-sm text-gray-500", className)} {...props} />
 ));
 TableCaption.propTypes = {
   className: PropTypes.string,
 };
 TableCaption.displayName = "TableCaption";
 
+// Export all components
 export {
   Table,
   TableHeader,

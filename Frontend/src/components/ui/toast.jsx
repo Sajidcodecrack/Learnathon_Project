@@ -1,12 +1,14 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import * as ToastPrimitives from "@radix-ui/react-toast";
-import { cva } from "class-variance-authority";
-import { X } from "lucide-react";
-import { cn } from "../../lib/utils";
+import PropTypes from "prop-types"; // For prop type-checking
+import * as ToastPrimitives from "@radix-ui/react-toast"; // Radix UI Toast primitives
+import { cva } from "class-variance-authority"; // For variant styling
+import { X } from "lucide-react"; // Close icon
+import { cn } from "../../lib/utils"; // Utility function for class names
 
+// Re-exporting Radix UI Toast Provider for easier access
 const ToastProvider = ToastPrimitives.Provider;
 
+// ToastViewport Component
 const ToastViewport = React.forwardRef(({ className, ...props }, ref) => (
   <ToastPrimitives.Viewport
     ref={ref}
@@ -18,25 +20,27 @@ const ToastViewport = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 ToastViewport.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string, // className is optional and should be a string
 };
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
+// Toast Variants for different styles
 const toastVariants = cva(
   "group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",
   {
     variants: {
       variant: {
-        default: "border bg-background text-foreground",
-        destructive: "destructive group border-destructive bg-destructive text-destructive-foreground",
+        default: "border bg-background text-foreground", // Default toast style
+        destructive: "destructive group border-destructive bg-destructive text-destructive-foreground", // Destructive toast style
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "default", // Default variant is "default"
     },
   }
 );
 
+// Toast Component
 const Toast = React.forwardRef(({ className, variant, ...props }, ref) => (
   <ToastPrimitives.Root
     ref={ref}
@@ -45,11 +49,12 @@ const Toast = React.forwardRef(({ className, variant, ...props }, ref) => (
   />
 ));
 Toast.propTypes = {
-  className: PropTypes.string,
-  variant: PropTypes.oneOf(["default", "destructive"]),
+  className: PropTypes.string, // className is optional and should be a string
+  variant: PropTypes.oneOf(["default", "destructive"]), // variant is optional but must be one of the specified values
 };
 Toast.displayName = ToastPrimitives.Root.displayName;
 
+// ToastAction Component
 const ToastAction = React.forwardRef(({ className, ...props }, ref) => (
   <ToastPrimitives.Action
     ref={ref}
@@ -61,10 +66,11 @@ const ToastAction = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 ToastAction.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string, // className is optional and should be a string
 };
 ToastAction.displayName = ToastPrimitives.Action.displayName;
 
+// ToastClose Component
 const ToastClose = React.forwardRef(({ className, ...props }, ref) => (
   <ToastPrimitives.Close
     ref={ref}
@@ -75,14 +81,15 @@ const ToastClose = React.forwardRef(({ className, ...props }, ref) => (
     toast-close=""
     {...props}
   >
-    <X className="h-4 w-4" />
+    <X className="h-4 w-4" /> {/* Close icon */}
   </ToastPrimitives.Close>
 ));
 ToastClose.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string, // className is optional and should be a string
 };
 ToastClose.displayName = ToastPrimitives.Close.displayName;
 
+// ToastTitle Component
 const ToastTitle = React.forwardRef(({ className, ...props }, ref) => (
   <ToastPrimitives.Title
     ref={ref}
@@ -91,10 +98,11 @@ const ToastTitle = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 ToastTitle.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string, // className is optional and should be a string
 };
 ToastTitle.displayName = ToastPrimitives.Title.displayName;
 
+// ToastDescription Component
 const ToastDescription = React.forwardRef(({ className, ...props }, ref) => (
   <ToastPrimitives.Description
     ref={ref}
@@ -103,10 +111,11 @@ const ToastDescription = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 ToastDescription.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string, // className is optional and should be a string
 };
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
+// Exporting all Toast-related components
 export {
   ToastProvider,
   ToastViewport,
@@ -114,5 +123,5 @@ export {
   ToastTitle,
   ToastDescription,
   ToastClose,
-  ToastAction
+  ToastAction,
 };
