@@ -91,26 +91,13 @@ const Index = () => {
               <img src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-md mb-4" />
               <h3 className="text-xl font-semibold text-foreground">{product.name}</h3>
               <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
-              <Button className="mt-4 w-full bg-primary hover:bg-primary/90">Buy Now</Button>
+              <Button className="mt-4 w-full bg-primary hover:bg-accent">Buy Now</Button>
             </Card>
           ))}
         </motion.div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-6 lg:px-32 bg-muted">
-        <motion.h2 {...fadeIn} className="text-3xl font-bold text-center mb-8 text-foreground">
-          Why Choose Us?
-        </motion.h2>
-        <motion.div {...fadeIn} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <Card key={feature.id} className="p-6 text-center hover:shadow-lg transition-shadow">
-              <CardTitle className="text-2xl font-bold text-foreground mb-4">{feature.title}</CardTitle>
-              <CardDescription className="text-muted-foreground">{feature.description}</CardDescription>
-            </Card>
-          ))}
-        </motion.div>
-      </section>
+      
 
       {/* FAQ Section */}
       <section className="my-16 mx-6 lg:mx-32 border-2 rounded-md">

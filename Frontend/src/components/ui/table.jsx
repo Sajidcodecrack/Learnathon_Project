@@ -18,11 +18,12 @@ Table.displayName = "Table";
 
 // TableHeader Component
 const TableHeader = React.forwardRef(({ className, children, ...props }, ref) => (
-  <thead ref={ref} className={cn("border-b bg-gray-100", className)} {...props}>
+  <thead ref={ref} className={cn("border-b bg-transparent", className)} {...props}>
     <tr>
-      <TableHead>Header 1</TableHead>
-      <TableHead>Header 2</TableHead>
-      <TableHead>Header 3</TableHead>
+      <TableHead>Order Id</TableHead>
+      <TableHead>Date</TableHead>
+      <TableHead>Amount</TableHead>
+      <TableHead>Status</TableHead>
     </tr>
   </thead>
 ));
@@ -43,7 +44,7 @@ TableBody.displayName = "TableBody";
 
 // TableFooter Component
 const TableFooter = React.forwardRef(({ className, ...props }, ref) => (
-  <tfoot ref={ref} className={cn("border-t bg-gray-50 font-medium", className)} {...props} />
+  <tfoot ref={ref} className={cn("border-t bg-muted font-medium", className)} {...props} />
 ));
 TableFooter.propTypes = {
   className: PropTypes.string,
@@ -52,7 +53,7 @@ TableFooter.displayName = "TableFooter";
 
 // TableRow Component
 const TableRow = React.forwardRef(({ className, ...props }, ref) => (
-  <tr ref={ref} className={cn("border-b hover:bg-gray-100", className)} {...props} />
+  <tr ref={ref} className={cn("border-b hover:bg-muted", className)} {...props} />
 ));
 TableRow.propTypes = {
   className: PropTypes.string,
@@ -61,7 +62,7 @@ TableRow.displayName = "TableRow";
 
 // TableHead Component (for column headers)
 const TableHead = React.forwardRef(({ className, ...props }, ref) => (
-  <th ref={ref} className={cn("px-4 py-2 text-left font-medium text-gray-700", className)} {...props} />
+  <th ref={ref} className={cn("px-4 py-2 text-left font-medium text-white", className)} {...props} />
 ));
 TableHead.propTypes = {
   className: PropTypes.string,

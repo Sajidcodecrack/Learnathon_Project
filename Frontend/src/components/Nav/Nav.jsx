@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../pages/auth/Firebase";
-import { Sun, Moon, ShoppingCart, Menu, Search, Camera } from "lucide-react";
+import { ShoppingCart, Menu, Search, Camera } from "lucide-react";
 import { Button } from "../ui/button";
-import { Toggle } from "../ui/toggle";
 import { Input } from "../ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import {
@@ -19,7 +18,6 @@ import {
 } from "../ui/navigation-menu";
 
 const Nav = () => {
-  const [theme, setTheme] = useState("light");
   const [user, setUser] = useState(null);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -29,13 +27,6 @@ const Nav = () => {
     const unsubscribe = onAuthStateChanged(auth, setUser);
     return () => unsubscribe();
   }, []);
-
-  // Apply dark mode styling
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
-
-  const toggleTheme = () => setTheme(prev => (prev === "light" ? "dark" : "light"));
 
   const handleLogout = async () => {
     try {
@@ -47,10 +38,10 @@ const Nav = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full py-4 px-4 md:px-8 lg:px-32 flex items-center justify-between z-50 border-b-2 bg-background/80 backdrop-blur-lg">
+    <nav className="fixed top-0 w-full py-4 px-4 md:px-8 lg:px-32 flex items-center justify-between z-50  bg-background/80 backdrop-blur-md">
       {/* Logo */}
-      <h1 className="text-3xl font-black font-praise text-muted-foreground">
-        FairBasket<span className="text-primary">.</span>
+      <h1 className="text-3xl font-black font-praise text-white opacity-70">
+        FAIRBASKET<span className="text-primary">.</span>
       </h1>
 
       {/* Desktop Navigation */}
@@ -100,7 +91,7 @@ const Nav = () => {
         </div>
 
         {/* Icons */}
-        <Button variant="ghost" size="icon" aria-label="Camera">
+        <Button variant="outline" size="icon" aria-label="Camera">
           <Camera className="h-5 w-5" />
         </Button>
         <Button variant="outline" className="flex items-center gap-2">
@@ -114,21 +105,16 @@ const Nav = () => {
         ) : (
           <Button onClick={() => navigate("/login")} variant="default">Sign In</Button>
         )}
-
-        {/* Theme Toggle */}
-        <Toggle onClick={toggleTheme} aria-label="Toggle theme">
-          {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-        </Toggle>
       </div>
 
       {/* Mobile Navigation */}
       <div className="lg:hidden flex items-center space-x-4">
-        <Button variant="ghost" size="icon" aria-label="Camera">
+        <Button variant="outline" size="icon" aria-label="Camera">
           <Camera className="h-5 w-5" />
         </Button>
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
+            <Button variant="default" size="icon">
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
@@ -159,12 +145,6 @@ const Nav = () => {
                 ) : (
                   <Button onClick={() => navigate("/login")} variant="default" className="w-full">Sign In</Button>
                 )}
-                <div className="mt-4 flex justify-between items-center">
-                  <span>Theme</span>
-                  <Toggle onClick={toggleTheme} aria-label="Toggle theme">
-                    {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-                  </Toggle>
-                </div>
               </div>
             </div>
           </SheetContent>
