@@ -131,7 +131,7 @@ const Nav = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end" forceMount>
-              <DropdownMenuItem onClick={() => navigate("/dashboard")}>Dashboard</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/customerdash")}>Dashboard</DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate("/profile")}>Profile</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
