@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 220, 5%, 5%; /* Darker background for more contrast */
+    --background: 220, 2%, 2%; /* Darker background for more contrast */
     --foreground: 150, 10%, 95%; /* Brighter text */
 
     --primary: 142, 45%, 45%; /* Much more vibrant green */

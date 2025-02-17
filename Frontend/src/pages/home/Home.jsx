@@ -5,8 +5,6 @@ import Footer from "./components/Footer";
 import { motion } from "framer-motion";
 import {
   Card,
-  CardTitle,
-  CardDescription,
 } from "../../components/ui/card";
 import {
   Accordion,

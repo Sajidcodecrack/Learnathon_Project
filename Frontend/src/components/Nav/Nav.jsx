@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../../pages/auth/Firebase";
-import { ShoppingCart, Menu, Search, Camera } from "lucide-react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { onAuthStateChanged, signOut } from "firebase/auth"
+import { auth } from "../../pages/auth/Firebase"
+import { ShoppingCart, Menu, Search, Camera, User } from "lucide-react"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,42 +15,60 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "../ui/navigation-menu";
+} from "../ui/navigation-menu"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 
 const Nav = () => {
-  const [user, setUser] = useState(null);
-  const [search, setSearch] = useState("");
-  const navigate = useNavigate();
+  const [user, setUser] = useState(null)
+  const [search, setSearch] = useState("")
+  const navigate = useNavigate()
 
   // Track user authentication state
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, setUser);
-    return () => unsubscribe();
-  }, []);
+    const unsubscribe = onAuthStateChanged(auth, setUser)
+    return () => unsubscribe()
+  }, [])
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
-      navigate("/login");
+      await signOut(auth)
+      navigate("/login")
     } catch (error) {
-      console.error("Error signing out:", error);
+      console.error("Error signing out:", error)
     }
-  };
+  }
 
   return (
-    <nav className="fixed top-0 w-full py-4 px-4 md:px-8 lg:px-32 flex items-center justify-between z-50  bg-background/80 backdrop-blur-md">
+    <nav className="fixed top-0 w-full py-4 px-4 md:px-8 lg:px-32 flex items-center justify-between z-50 bg-background/80 backdrop-blur-md">
       {/* Logo */}
-      <h1 className="text-3xl font-black font-praise text-white opacity-70">
+      <h1 className="text-3xl font-black text-white ">
         FAIRBASKET<span className="text-primary">.</span>
       </h1>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center space-x-6">
+      <div className="hidden lg:flex justify-between items-center space-x-6">
+        <div className="">
+          <a className="hover:text-accent" href="./">
+            Home
+          </a>
+        </div>
+        <div className="">
+          <a className="hover:text-accent" href="./">
+            Market
+          </a>
+        </div>
         {/* Products Dropdown */}
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="hover:text-accent">Products</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
@@ -101,9 +119,28 @@ const Nav = () => {
 
         {/* Authentication */}
         {user ? (
-          <Button onClick={handleLogout} variant="destructive">Logout</Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="relative h-8 w-8 rounded-full">
+                <Avatar className="h-7 w-7">
+                  <AvatarImage src={user.photoURL || "/placeholder-avatar.jpg"} alt={user.displayName || "User"} />
+                  <AvatarFallback>
+                    {user.displayName ? user.displayName[0] : <User className="h-4 w-4" />}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuItem onClick={() => navigate("/dashboard")}>Dashboard</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/profile")}>Profile</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
-          <Button onClick={() => navigate("/login")} variant="default">Sign In</Button>
+          <Button onClick={() => navigate("/login")} variant="default">
+            Sign In
+          </Button>
         )}
       </div>
 
@@ -141,9 +178,18 @@ const Nav = () => {
                   <ShoppingCart className="h-5 w-5 mr-2" /> Cart
                 </Button>
                 {user ? (
-                  <Button onClick={handleLogout} variant="destructive" className="w-full">Logout</Button>
+                  <>
+                    <Button onClick={() => navigate("/dashboard")} variant="outline" className="w-full mb-2">
+                      Dashboard
+                    </Button>
+                    <Button onClick={handleLogout} variant="destructive" className="w-full">
+                      Log out
+                    </Button>
+                  </>
                 ) : (
-                  <Button onClick={() => navigate("/login")} variant="default" className="w-full">Sign In</Button>
+                  <Button onClick={() => navigate("/login")} variant="default" className="w-full">
+                    Sign In
+                  </Button>
                 )}
               </div>
             </div>
@@ -151,7 +197,8 @@ const Nav = () => {
         </Sheet>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Nav;
+export default Nav
+

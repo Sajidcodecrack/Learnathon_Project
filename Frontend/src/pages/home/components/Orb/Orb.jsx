@@ -316,7 +316,7 @@ const Orb = ({
     };
   }, [hue, hoverIntensity, rotateOnHover, forceHoverState]);
 
-  return <div ref={ctnDom} className="w-[600px] h-[600px]" />;
+  return <div ref={ctnDom} className="w-[300px] h-[300px] md:h-[600px] md:w-[600px]" />;
 };
 
 // PropTypes validation
