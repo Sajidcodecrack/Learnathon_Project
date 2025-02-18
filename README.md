@@ -34,45 +34,6 @@ Our platform seeks to democratize the grocery marketplace by fostering a transpa
 2. Install dependencies
 3. Start development
 
-## Frontend Setup
-1. Navigate to the Frontend directory:
-```bash
-cd Frontend
-```
-
-2. Install Node.js dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm run dev
-```
-The application will start running on `http://localhost:5173` (or another port if 5173 is occupied)
-
-### Frontend Tech Stack
-- React 18
-- Vite
-- React Router DOM (for routing)
-- Tailwind CSS (for styling)
-
-### Available Scripts
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint for code quality
-
-### System Requirements
-- Node.js 18.x or higher
-- npm 9.x or higher
-
-### Notes
-- The frontend is built using Vite for faster development and better performance
-- Tailwind CSS is used for styling - make sure to check tailwind.config.js for any customizations
-- The project uses ESLint for code quality - check eslint.config.js for rules
-- Three.js and React Three Fiber are used for 3D graphics in the Scene component
-
 ## Development Guidelines
 1. Create feature branches
 2. Make small, focused commits
