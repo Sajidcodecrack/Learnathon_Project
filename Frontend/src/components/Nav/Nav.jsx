@@ -179,7 +179,7 @@ const Nav = () => {
                 </Button>
                 {user ? (
                   <>
-                    <Button onClick={() => navigate("/dashboard")} variant="outline" className="w-full mb-2">
+                    <Button onClick={() => navigate("/customerdash")} variant="outline" className="w-full mb-2">
                       Dashboard
                     </Button>
                     <Button onClick={handleLogout} variant="destructive" className="w-full">
