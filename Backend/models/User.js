@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
   uid: { type: String, required: true, unique: true }, // Firebase UID
+<<<<<<< Updated upstream
   fullName: { type: String, required: true, trim: true },
   email: { 
     type: String, 
@@ -29,3 +30,12 @@ userSchema.pre("save", async function (next) {
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 module.exports = User;
+=======
+  fullName: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true }, // Password field
+});
+
+const User = mongoose.model("User", userSchema);
+module.exports = User;
+>>>>>>> Stashed changes
