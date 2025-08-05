@@ -33,7 +33,7 @@ FairBasket is an innovative, open-source e-commerce platform designed to revolut
 |----------------|------------------------|-------------------|-----------------|
 | sahilaf        | Frontend Developer (Team Lead) | [sahilaf](https://github.com/sahilaf) | [LinkedIn](#) |
 | Sajidcodecrack | Backend Developer       | [Sajidcodecrack](https://github.com/Sajidcodecrack) | [LinkedIn](#) |
-| AJFShuvo       | Tester                  | [AJFShuvo](https://github.com/AJFShuvo) | [LinkedIn](#) |
+| AJFShuvo       | Tester/Backend Developer| [AJFShuvo](https://github.com/AJFShuvo) | [LinkedIn](#) |
 | moshiuzzaman   | Mentor                  | [moshiuzzaman](https://github.com/moshiuzzaman) | [LinkedIn](#) |
 
 ---
